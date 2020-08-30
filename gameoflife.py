@@ -39,35 +39,45 @@ class Application(tk.Frame):
         self.gen_number = tk.Label(self, text="0", font=("Courier", 12))
         self.gen_number.grid(row=1, column=29)
 
-        self.rules1 = tk.Label(self, text="A black cell is alive. A white cell is dead. Evolution runs according to the rules:")
+        self.rules1 = tk.Label(self, text="A black cell is alive. A white cell is dead. A cell's neighbors are adjacent")
         self.rules1.grid(row=2, column=25, columnspan=8)
-        self.rules2 = tk.Label(self, text="1. Here is rule one")
-        self.rules2.grid(row=3, column=25, columnspan=8)
-        self.rules3 = tk.Label(self, text="2. Here is rule two")
-        self.rules3.grid(row=4, column=25, columnspan=8)
-        self.rules4 = tk.Label(self, text="3. Here is rule three")
-        self.rules4.grid(row=5, column=25, columnspan=8)
+        self.rules1 = tk.Label(self, text="vertically, horizontally, or diagonally. Evolution occurs according to these rules:")
+        self.rules1.grid(row=3, column=25, columnspan=8)
+        self.rules2 = tk.Label(self, text="1. Any live cell with two or three live neighbours survives.")
+        self.rules2.grid(row=4, column=25, columnspan=8)
+        self.rules3 = tk.Label(self, text="2. Any dead cell with three live neighbours becomes a live cell.")
+        self.rules3.grid(row=5, column=25, columnspan=8)
+        self.rules4 = tk.Label(self, text="3. All other live cells die in the next generation. Similarly, all other dead cells stay dead.")
+        self.rules4.grid(row=6, column=25, columnspan=8)
 
         self.play = tk.Button(self, text='Play', bg='white', command=self.on_play)
-        self.play.grid(row=7, column=29)
+        self.play.grid(row=8, column=29)
 
         self.step = tk.Button(self, text='Step', bg='white', command=self.on_step)
-        self.step.grid(row=7, column=30)
+        self.step.grid(row=8, column=30)
 
         self.clear = tk.Button(self, text='Clear', bg='white', command=self.clear_screen)
-        self.clear.grid(row=7, column=31)
+        self.clear.grid(row=8, column=31)
 
         self.stop = tk.Button(self, text='Stop', bg='white', command=self.on_stop)
-        self.stop.grid(row=7, column=32)
+        self.stop.grid(row=8, column=32, padx=(0, 10))
 
         self.blinker = tk.Button(self, text='Blinker', bg='white', command=self.on_blinker)
-        self.blinker.grid(row=7, column=25)
+        self.blinker.grid(row=8, column=25, padx=(10, 0))
 
         self.glider = tk.Button(self, text='Glider', bg='white', command=self.on_glider)
-        self.glider.grid(row=7, column=26)
+        self.glider.grid(row=8, column=26)
+
+        self.toad = tk.Button(self, text='Toad', bg='white', command=self.on_toad)
+        self.toad.grid(row=8, column=27)
 
         self.random = tk.Button(self, text='Random', bg='white', command=self.on_random)
-        self.random.grid(row=7, column=27)
+        self.random.grid(row=8, column=28, sticky=tk.W)
+
+        self.message = tk.Message(self, text="The Game of Life is a cellular automaton created by British mathematician John Horton Conway. The game became widely known after being mentioned in a 1970 Scientific American article. The game consists of a collection of cells which live, die, or multiply based on mathematical principles.", font=("Courier", 12))
+        self.message.config(aspect=200)
+        self.message.grid(row=10, column=25, padx=(10, 0), columnspan=8, rowspan=14, sticky=tk.N)
+
 
     def get_neighbors(self, row, col):
         coords = [(row-1, col-1), (row-1, col), (row-1, col+1),
@@ -82,6 +92,12 @@ class Application(tk.Frame):
     
     def on_stop(self):
         self.keep_going = False
+        self.blinker.config(state="normal")
+        self.glider.config(state="normal")
+        self.random.config(state="normal")
+        self.step.config(state="normal")
+        self.clear.config(state="normal")
+        self.play.config(state="normal")
     
     def clear_screen(self):
         self.on_stop()
@@ -104,6 +120,14 @@ class Application(tk.Frame):
         self.button_arr[10][10].configure(bg="black")
         self.button_arr[10][11].configure(bg="black")
 
+    def on_toad(self):
+        self.button_arr[10][9].configure(bg="black")
+        self.button_arr[10][10].configure(bg="black")
+        self.button_arr[10][11].configure(bg="black")
+        self.button_arr[11][8].configure(bg="black")
+        self.button_arr[11][9].configure(bg="black")
+        self.button_arr[11][10].configure(bg="black")
+
     def on_random(self):
         for k in range(25):
             for f in range(25):
@@ -114,6 +138,12 @@ class Application(tk.Frame):
         for k in range(25):
             for f in range(25):
                 self.button_arr[k][f].config(state="disabled")
+        self.blinker.config(state="disabled")
+        self.glider.config(state="disabled")
+        self.random.config(state="disabled")
+        self.step.config(state="disabled")
+        self.clear.config(state="disabled")
+        self.play.config(state="disabled")
 
         self.keep_going = True
         while self.keep_going:

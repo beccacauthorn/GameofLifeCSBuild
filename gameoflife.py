@@ -30,10 +30,10 @@ class Application(tk.Frame):
 
                 self.button_arr[i][j].grid(row=i, column=j, sticky=tk.S)
 
-        self.title = tk.Label(self, text="Game of Life", font=("Courier", 36))
+        self.title = tk.Label(self, text="Game of Life", font=("Courier", 36, "bold"))
         self.title.grid(row=0, column=25, columnspan=8)
 
-        self.gen_number_text = tk.Label(self, text="Generation number:", font=("Courier", 12))
+        self.gen_number_text = tk.Label(self, text="Generation number:", font=("Courier", 13, "bold"))
         self.gen_number_text.grid(row=1, column=28, columnspan=1)
 
         self.gen_number = tk.Label(self, text="0", font=("Courier", 12))
@@ -50,31 +50,31 @@ class Application(tk.Frame):
         self.rules4 = tk.Label(self, text="3. All other live cells die in the next generation. Similarly, all other dead cells stay dead.")
         self.rules4.grid(row=6, column=25, columnspan=8)
 
-        self.play = tk.Button(self, text='Play', bg='white', command=self.on_play)
+        self.play = tk.Button(self, text='Play', command=self.on_play)
         self.play.grid(row=8, column=29)
 
-        self.step = tk.Button(self, text='Step', bg='white', command=self.on_step)
+        self.step = tk.Button(self, text='Step', command=self.on_step)
         self.step.grid(row=8, column=30)
 
-        self.clear = tk.Button(self, text='Clear', bg='white', command=self.clear_screen)
+        self.clear = tk.Button(self, text='Clear', command=self.clear_screen)
         self.clear.grid(row=8, column=31)
 
-        self.stop = tk.Button(self, text='Stop', bg='white', command=self.on_stop)
+        self.stop = tk.Button(self, text='Stop', command=self.on_stop)
         self.stop.grid(row=8, column=32, padx=(0, 10))
 
-        self.blinker = tk.Button(self, text='Blinker', bg='white', command=self.on_blinker)
+        self.blinker = tk.Button(self, text='Blinker', command=self.on_blinker)
         self.blinker.grid(row=8, column=25, padx=(10, 0))
 
-        self.glider = tk.Button(self, text='Glider', bg='white', command=self.on_glider)
+        self.glider = tk.Button(self, text='Glider', command=self.on_glider)
         self.glider.grid(row=8, column=26)
 
-        self.toad = tk.Button(self, text='Toad', bg='white', command=self.on_toad)
+        self.toad = tk.Button(self, text='Toad', command=self.on_toad)
         self.toad.grid(row=8, column=27)
 
-        self.random = tk.Button(self, text='Random', bg='white', command=self.on_random)
+        self.random = tk.Button(self, text='Random', command=self.on_random)
         self.random.grid(row=8, column=28, sticky=tk.W)
 
-        self.message = tk.Message(self, text="The Game of Life is a cellular automaton created by British mathematician John Horton Conway. The game became widely known after being mentioned in a 1970 Scientific American article. The game consists of a collection of cells which live, die, or multiply based on mathematical principles.", font=("Courier", 12))
+        self.message = tk.Message(self, text="The Game of Life is a cellular automaton created by British mathematician John Horton Conway. The game became widely known after being mentioned in a 1970 Scientific American article. The game consists of a collection of cells which live, die, or multiply based on mathematical principles. The game is a powerful example of emergence and self-organization, providing insight into how complex patterns can emerge from the implementation of the game's simple rules. For this reason, the Game of Life has been studied by scholars in fields ranging from biology and physics to philosophy and economics.", font=("Courier", 12))
         self.message.config(aspect=200)
         self.message.grid(row=10, column=25, padx=(10, 0), columnspan=8, rowspan=14, sticky=tk.N)
 
